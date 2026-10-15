@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>10³⁰分の1</title>
+    <meta name="description" content="10³⁰分の1" />
+  </head>
+  <body>
+    <header>
+      <h1>10<sup>30</sup>分の1</h1>
+    </header>
+    <main>
+      <button type="button">生まれる</button>
+      <p id="result"></p>
+    </main>
+
+    <hr />
+
+    <footer>
+      <p>
+        inspired by
+        <a href="https://hutinoatari.github.io/cheapTransfer/">最安経路検索</a>,
+        <a href="https://uec-matching.mimifuwacc.workers.dev/">電通大生専用マッチングアプリ</a>
+      </p>
+      <p><small>&copy;2026 ctes091x</small></p>
+    </footer>
+
+    <script>
+      // 地球上の生物の個体数比（原核生物 約1.2×10^30 細胞を分母とする）
+      const lives = [
+        [6.7e-21, "ヒトです。おめでとうございます。"],
+        [1.7e-14, "アリです。働きます。"],
+        [3.7e-10, "土壌の線虫です。"],
+        [0.003, "海のシアノバクテリアです。光合成をして、1日で分裂して終了しました。"],
+        [0.02, "海のSAR11です。漂って終了しました。"],
+        [0.06, "海の名もない細菌です。漂って終了しました。"],
+        [0.25, "土の中の細菌です。休眠して終了しました。"],
+      ];
+      const fallback = "海底下240mの堆積物中の細菌です。\n前回の分裂から1,400年が経過しました。\n今回も分裂しませんでした。";
+
+      const result = document.querySelector("#result");
+      const button = document.querySelector("button");
+
+      button.onclick = () => {
+        button.disabled = true;
+        result.innerText = "出生地を決めています";
+        const timerID = setInterval(() => (result.innerText += "."), 700);
+        setTimeout(() => {
+          clearInterval(timerID);
+          let r = Math.random();
+          result.innerText = "あなたは" + (lives.find(([p]) => (r -= p) < 0)?.[1] ?? fallback);
+          button.disabled = false;
+        }, 2000 + Math.random() * 3000);
+      };
+    </script>
+  </body>
+</html>
